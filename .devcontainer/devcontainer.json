@@ -43,7 +43,12 @@
 				"developersoapbox.vscode-springboot-developer-pack",
 				"ms-azuretools.vscode-dapr",
 				"bierner.markdown-preview-github-styles",
-				"oderwat.indent-rainbow"
+				"oderwat.indent-rainbow",
+				"mongodb.mongodb-vscode",
+				"2gua.rainbow-brackets",
+				"dzhavat.bracket-pair-toggler",
+				"IBM.output-colorizer",
+				"kamikillerto.vscode-colorize"
 			]
 		}
 	},
