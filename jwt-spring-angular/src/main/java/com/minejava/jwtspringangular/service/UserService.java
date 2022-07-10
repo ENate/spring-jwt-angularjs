@@ -31,8 +31,8 @@ public class UserService {
         roleDao.save(adminRole);
 
         Role userRole = new Role();
-        adminRole.setRoleName("User");
-        adminRole.setRoleDescription("Default  role for newly created record");
+        userRole.setRoleName("User");
+        userRole.setRoleDescription("Default  role for newly created record");
         roleDao.save(userRole);
 
         User adminUser = new User();
@@ -45,14 +45,14 @@ public class UserService {
         adminUser.setRole(adminRoles);
         userDao.save(adminUser);
 
-          User user = new User();
-       user.setUserName("news123");
-       user.setUserPassword("news@123");
-       user.setUserFirstName("Jos");
-       user.setUserLastName("Harmer");
-       Set<Role> userRoles = new HashSet<>();
-       userRoles.add(userRole);
-       user.setRole(userRoles);
-       userDao.save(user);
+        User user = new User();
+        user.setUserName("news123");
+        user.setUserPassword("news@123");
+        user.setUserFirstName("Jos");
+        user.setUserLastName("Harmer");
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(userRole);
+        user.setRole(userRoles);
+        userDao.save(user);
     }
 }
