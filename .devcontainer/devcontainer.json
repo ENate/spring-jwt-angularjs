@@ -48,7 +48,8 @@
 				"2gua.rainbow-brackets",
 				"dzhavat.bracket-pair-toggler",
 				"IBM.output-colorizer",
-				"kamikillerto.vscode-colorize"
+				"kamikillerto.vscode-colorize",
+				"GitHub.vscode-pull-request-github"
 			]
 		}
 	},
