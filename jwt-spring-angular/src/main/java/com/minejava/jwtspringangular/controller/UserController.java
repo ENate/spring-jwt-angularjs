@@ -29,7 +29,7 @@ public class UserController {
     }
     
     @GetMapping({"/forAdmin"})
-    @PreAuthorize("hasRole('Admin')") // Forbids non user admin
+    @PreAuthorize("hasRole('Admin')") // Forbids non user admin: use hasAnyRole for multiple roles
     public String forAdmin() {
         return "URL accessible to admin only";
     }
