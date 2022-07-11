@@ -15,7 +15,6 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Getter
 @Setter
 public class Role {
