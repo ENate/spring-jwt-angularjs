@@ -33,7 +33,7 @@ public class UserService {
 
         Role userRole = new Role();
         userRole.setRoleName("User");
-        userRole.setRoleDescription("Default  role for newly created record");
+        userRole.setRoleDescription("User role for newly created record");
         roleDao.save(userRole);
 
         User adminUser = new User();
