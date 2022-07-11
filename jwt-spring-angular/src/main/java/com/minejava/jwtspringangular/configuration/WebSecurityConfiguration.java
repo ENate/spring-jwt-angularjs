@@ -17,29 +17,35 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import lombok.RequiredArgsConstructor;
+
 
 /**
  * Will take care of role-based authentication via global method security etc
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration {
 
     @Autowired
-    private UserDetailsService jwtService;
+    private UserDetailsService jwtServiceB;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
+
     AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
             return authenticationConfiguration.getAuthenticationManager();
         }
     
-        @Autowired
-        private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -50,11 +56,11 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(jwtService);
+        authenticationManagerBuilder.userDetailsService(jwtServiceB);
         authenticationManager = authenticationManagerBuilder.build();
         http.cors();
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate", "/registerNewUser").permitAll()
+                .authorizeRequests().antMatchers("/authenticate", "/registerNewUser").permitAll() // prevents initial jwt to be added
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -66,9 +72,9 @@ public class WebSecurityConfiguration {
         return http.build();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(jwtService).passwordEncoder(passwordEncoder());
+    //@Autowired
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(jwtServiceB).passwordEncoder(passwordEncoder());
     }
     
 }

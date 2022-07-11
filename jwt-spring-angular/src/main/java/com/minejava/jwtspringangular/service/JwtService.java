@@ -20,7 +20,10 @@ import com.minejava.jwtspringangular.entity.JwtResponse;
 import com.minejava.jwtspringangular.entity.User;
 import com.minejava.jwtspringangular.util.JwtUtil;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class JwtService implements UserDetailsService{
 
     @Autowired
@@ -28,19 +31,20 @@ public class JwtService implements UserDetailsService{
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    
     @Autowired
     private JwtUtil jwtUtil;
 
     public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception {
         String userName = jwtRequest.getUserName();
         String userPassword = jwtRequest.getUserPassword();
-        authenticate(userName, userPassword);
+        authenticateX(userName, userPassword);
 
-        UserDetails userDetails = loadUserByUsername(userName);
+
+        final UserDetails userDetails = loadUserByUsername(userName);
         String newGeneratedToken = jwtUtil.generateToken(userDetails);
 
-        User user = userDao.findById(userName).get();
+        User user = userDao.findById(userName).get(); // Returns optional
         return new JwtResponse(user, newGeneratedToken);
     }
     @Override
@@ -48,18 +52,20 @@ public class JwtService implements UserDetailsService{
         // DO Auto-generated method 
         User user = userDao.findById(username).get();
         
+        // Send user and password as requested by spring
         if(user != null) {
             return new org.springframework.security.core.userdetails.User(
                 user.getUserName(),
                 user.getUserPassword(),
-                getAuthority(user)
+                getAuthoritiess(user)
             );
+            
         } else {
                 throw new UsernameNotFoundException("User not found" + username);
             }
     }
 
-    private Set getAuthority(User user) {
+    private Set<SimpleGrantedAuthority> getAuthoritiess(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         user.getRole().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
@@ -67,7 +73,7 @@ public class JwtService implements UserDetailsService{
         return authorities;
     }
 
-    private void authenticate(String userName, String userPassword) throws Exception {
+    private void authenticateX(String userName, String userPassword) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, userPassword));
         } catch (DisabledException e) {

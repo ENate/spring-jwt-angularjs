@@ -63,6 +63,9 @@ public class JwtUtil {
     }
     public String generateToken(UserDetails userDetails) {
 
+        // This is used to generate tokens
+        // Map contains claims but empty so that it takes sting as key and any object as val
+        // use builder pattern to return jwt token
         Map<String, Object> claims = new HashMap<>();
 
         return Jwts.builder()
