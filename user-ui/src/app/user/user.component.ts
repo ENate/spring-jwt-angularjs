@@ -1,3 +1,4 @@
+import { UserService } from './../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  message: any;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.forUser();
+  }
+
+  forUser() {
+    return this.userService.forUser().subscribe(
+      (response:any) => {
+        console.log(response);
+        this.message=response;
+      }, (error:any) => {
+        console.log(error);
+      }
+    );
   }
 
 }

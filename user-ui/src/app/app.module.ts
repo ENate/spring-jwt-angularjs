@@ -1,8 +1,10 @@
+import { UserService } from './_services/user.service';
+import { AuthGuard } from './_auth/auth.guard';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +15,7 @@ import { UserComponent } from './user/user.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { AuthInterceptor } from './_auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,17 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     HttpClientModule,
     RouterModule
   ],
-  providers: [],
+  providers: [
+    /** Use authoguard after defining new class interceptor in _auth */
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi:true
+
+    }, /** provide name to use interceptor */
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
