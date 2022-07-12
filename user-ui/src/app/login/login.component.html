@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div class="container mt-5">
+    <div class="card" style="padding: 20px;">
+        <!-- define form name as some var -->
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+            <!-- Automatic usage of backend field: userName and userPassword
+            means declaration of the same field names. -->
+            <input type="text"
+            ngModel 
+            name="userName"
+            id="userName"
+            placeholder="Enter your username:"
+            class="form-control mb-3"
+            >
+            <input type="text"
+            ngModel
+            name="userPassword"
+            id="userPassword"
+            placeholder="Enter your password:"
+            class="form-control mb-3"
+            >
+            <input type="submit" value="Login" class="btn btn-outline-primary form-control rounded-0">
+        </form>
+    </div>
+</div>
