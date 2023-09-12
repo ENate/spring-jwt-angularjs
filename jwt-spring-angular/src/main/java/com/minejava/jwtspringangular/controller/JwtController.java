@@ -1,6 +1,5 @@
 package com.minejava.jwtspringangular.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +12,12 @@ import com.minejava.jwtspringangular.service.JwtService;
 @RestController
 @CrossOrigin
 public class JwtController {
-    @Autowired
-    private JwtService jwtService;
+
+    private final JwtService jwtService;
+
+    public JwtController(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
 
     // Use to authenticate
     @PostMapping({"/authenticate"})

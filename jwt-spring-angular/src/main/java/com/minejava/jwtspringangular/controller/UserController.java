@@ -1,8 +1,7 @@
 package com.minejava.jwtspringangular.controller;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +13,15 @@ import com.minejava.jwtspringangular.service.UserService;
 
 @RestController
 public class UserController {
-    
-    @Autowired
-    private UserService userService;
-    
 
-    @PostConstruct // run every time we run
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+
+    @PostConstruct // first runs when spring boot initializes before others
     public void initRolesAndusers() {
         userService.initRolesAndUser();
     }
@@ -29,7 +31,7 @@ public class UserController {
     }
     
     @GetMapping({"/forAdmin"})
-    @PreAuthorize("hasRole('Admin')") // Forbids non user admin: use hasAnyRole for multiple roles
+    @PreAuthorize("hasRole('Admin')") // Forbids non-user admin: use hasAnyRole for multiple roles
     public String forAdmin() {
         return "URL accessible to admin only";
     }
