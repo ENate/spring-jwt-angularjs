@@ -17,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Role {
-
+    // Check Spring boot version
     @Id
     private String roleName;
 
