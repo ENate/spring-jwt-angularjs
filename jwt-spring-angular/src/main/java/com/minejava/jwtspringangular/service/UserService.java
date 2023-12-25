@@ -3,7 +3,6 @@ package com.minejava.jwtspringangular.service;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +14,17 @@ import com.minejava.jwtspringangular.entity.User;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserDao userDao;
+    private final UserDao userDao;
 
-    @Autowired
-    private RoleDao roleDao;
+    private final RoleDao roleDao;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final  PasswordEncoder passwordEncoder;
+
+    public UserService(UserDao userDao, RoleDao roleDao, PasswordEncoder passwordEncoder) {
+        this.userDao = userDao;
+        this.roleDao = roleDao;
+        this.passwordEncoder = passwordEncoder;
+    }
 
 
     public void initRolesAndUser() {

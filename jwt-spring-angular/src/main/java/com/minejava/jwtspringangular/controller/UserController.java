@@ -2,7 +2,6 @@ package com.minejava.jwtspringangular.controller;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +13,13 @@ import com.minejava.jwtspringangular.service.UserService;
 
 @RestController
 public class UserController {
-    
-    @Autowired
-    private UserService userService;
-    
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
 
     @PostConstruct // run every time we run
     public void initRolesAndusers() {

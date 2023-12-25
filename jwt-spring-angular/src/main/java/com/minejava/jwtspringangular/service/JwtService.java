@@ -3,7 +3,6 @@ package com.minejava.jwtspringangular.service;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -26,14 +25,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtService implements UserDetailsService{
 
-    @Autowired
+
     private UserDao userDao;
 
-    @Autowired
+
     private AuthenticationManager authenticationManager;
-    
-    @Autowired
+
     private JwtUtil jwtUtil;
+
+    public JwtService(UserDao userDao, AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+        this.userDao = userDao;
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
+    }
 
     public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception {
         String userName = jwtRequest.getUserName();

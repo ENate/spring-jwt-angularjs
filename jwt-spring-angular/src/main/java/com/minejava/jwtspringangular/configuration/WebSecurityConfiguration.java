@@ -1,6 +1,5 @@
 package com.minejava.jwtspringangular.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -29,17 +28,23 @@ import lombok.RequiredArgsConstructor;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration {
 
-    @Autowired
+
     private UserDetailsService jwtServiceB;
 
-    @Autowired
+
     private JwtRequestFilter jwtRequestFilter;
 
     AuthenticationManager authenticationManager;
 
-    @Autowired
+
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    
+
+    public WebSecurityConfiguration(UserDetailsService jwtServiceB, JwtRequestFilter jwtRequestFilter, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+        this.jwtServiceB = jwtServiceB;
+        this.jwtRequestFilter = jwtRequestFilter;
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+    }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

@@ -40,14 +40,14 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
-        // check user name from token and that provided by user
+        // check username from token and that provided by user
         // check whether token is expired: using is
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private Boolean isTokenExpired(String token) {
-        /**
-         * @param: token
+        /*
+        @param: token
          * @returns claims from token
          * new date will return current date. Check dates of token.
          */
@@ -55,7 +55,7 @@ public class JwtUtil {
         return expiration.before(new Date());
     }
     public Date getExpirationDateFromToken(String token) {
-        /**
+        /*
          * @param: token - 
          * @returns claims from token
          */
