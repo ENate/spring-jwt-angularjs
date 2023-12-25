@@ -21,17 +21,17 @@ export class UserService {
    * login
    */
   public login(loginData: any) {
-    /** pass endpoint service depending where service is running */
+    /** pass endpoint service depending on where service is running */
     return this.httpClient.post(this.PATH_OF_API + "/authenticate", loginData, { headers: this.requestHeader });
   }
 
   public forUser() {
-    return this.httpClient.get(this.PATH_OF_API + '/forUser', {responseType: 
+    return this.httpClient.get(this.PATH_OF_API + '/forUser', {responseType:
       'text'});
   }
 
   public forAdmin() {
-    return this.httpClient.get(this.PATH_OF_API + '/forAdmin', {responseType: 
+    return this.httpClient.get(this.PATH_OF_API + '/forAdmin', {responseType:
       'text'});
   }
   /**
@@ -43,7 +43,7 @@ allowedRoles   */
     if (userRoles != null && userRoles) {
       for (let i = 0; i < userRoles.length; i++) {
         for (let j = 0; j < allowedRoles.length; j++) {
-          /**rolename matches allowed roless... */
+          /**role name matches allowed roles... */
           if (userRoles[i].roleName === allowedRoles[j]) {
             isMatch = true;
             return isMatch;

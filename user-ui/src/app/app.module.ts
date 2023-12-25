@@ -35,7 +35,7 @@ import { AuthInterceptor } from './_auth/auth.interceptor';
     RouterModule
   ],
   providers: [
-    /** Use authoguard after defining new class interceptor in _auth */
+    /** Use auth guard after defining new class interceptor in _auth */
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

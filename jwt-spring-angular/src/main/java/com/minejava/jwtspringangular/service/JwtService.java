@@ -23,14 +23,10 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class JwtService implements UserDetailsService{
-
+public class JwtService implements UserDetailsService {
 
     private UserDao userDao;
-
-
     private AuthenticationManager authenticationManager;
-
     private JwtUtil jwtUtil;
 
     public JwtService(UserDao userDao, AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
